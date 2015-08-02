@@ -13,7 +13,7 @@
 --
 -- Ouput
 --   lns      -  lines, n x
-function loadLns(lstPath)
+function lua_lib.loadLns(lstPath)
   lns = {}
   for ln in io.lines(lstPath) do
     table.insert(lns, ln)
