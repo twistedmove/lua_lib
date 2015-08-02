@@ -1,0 +1,11 @@
+*.pdf
+*.eps
+*.jpg
+*.png
+*.log
+.DS_Store
+GPATH
+GRTAGS
+GTAGS
+TAGS
+
