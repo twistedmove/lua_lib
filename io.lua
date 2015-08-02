@@ -6,6 +6,22 @@
 --   modify  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
 
 ----------------------------------------------------------------------
+-- Load lines.
+--
+-- Input
+--   lstPath  -  list path
+--
+-- Ouput
+--   lns      -  lines, n x
+function loadLns(lstPath)
+  lns = {}
+  for ln in io.lines(lstPath) do
+    table.insert(lns, ln)
+  end
+  return lns
+end
+
+----------------------------------------------------------------------
 -- Return the list of all sub-folders under a folder.
 --
 -- Input
