@@ -1,17 +1,25 @@
+#!/usr/bin/env th
+-- Lua library.
+--
+-- History
+--   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
+
 th_lib = {}
 
+----------------------------------------------------------------------
+-- Print the keys of a table.
+--
+-- Input
+--   tab  -  table
 function th_lib.prKeys(tab)
-  -- Print the keys of a table.
-  --
-  -- Input
-  --   tab  -  table
-
   -- each key
-  for k,v in pairs(tab) do
+  for k, v in pairs(tab) do
     print(k)
   end
 end
 
+----------------------------------------------------------------------
 local logFile = nil
 local lPr = nil
 local lMaPr = nil
@@ -21,12 +29,12 @@ local ticPr0s = nil
 local nRepPrs = nil
 local scaPrs = nil
 
+----------------------------------------------------------------------
+-- Set the promption level
+--
+-- Input
+--   lMa  -  maximum level
 function prSet(lMa)
-  -- Set the promption level
-  --
-  -- Input
-  --   lMa  -  maximum level
-
   -- level
   lPr = 1
   lMaPr = lMa
@@ -40,11 +48,12 @@ function prSet(lMa)
   -- scaPrs = range(nMa)
 end
 
+----------------------------------------------------------------------
+-- Print information
+--
+-- Input
+--   msg  -  message
 function th_lib.pr(msg)
-  -- Print information
-  --
-  -- Input
-  --   msg  -  message
   assert(lPr)
   if lPr < lMaPr then
     for l = 1, lPr + 1 do
@@ -52,6 +61,30 @@ function th_lib.pr(msg)
     end
     print(msg)
   end
+end
+
+----------------------------------------------------------------------
+-- Return the list of all sub-folders under a folder.
+--
+-- Input
+--   fold       -  root fold
+--
+-- Output
+--   foldNms    -  directory name list, n x
+--   foldPaths  -  directory path list, n x
+function th_lib.listFold(fold)
+  foldNms = {}
+  foldPaths = {}
+
+  -- each sub file
+  for foldNm in paths.files(fold) do
+    local foldPath = paths.concat(fold, foldNm)
+    if paths.dirp(foldPath) and foldNm ~= '..' and foldNm ~= '.' then
+      table.insert(foldNms, foldNm)
+      table.insert(foldPaths, foldPath)
+    end
+  end
+  return foldNms, foldPaths
 end
 
 return th_lib
