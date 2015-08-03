@@ -6,7 +6,7 @@
 --   modify  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
 
 ----------------------------------------------------------------------
--- Load lines.
+-- Load lines from the given file.
 --
 -- Input
 --   lstPath  -  list path
