@@ -8,5 +8,6 @@
 lua_lib = {}
 
 include('io.lua')
+include('pr.lua')
 
 return lua_lib

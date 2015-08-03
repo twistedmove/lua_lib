@@ -4,14 +4,13 @@
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
 --   modify  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
-th_lib = {}
 
 ----------------------------------------------------------------------
 -- Print the keys of a table.
 --
 -- Input
 --   tab  -  table
-function th_lib.prKeys(tab)
+function lua_lib.prKeys(tab)
   -- each key
   for k, v in pairs(tab) do
     print(k)
@@ -33,7 +32,7 @@ local scaPrs = nil
 --
 -- Input
 --   lMa  -  maximum level
-function th_lib.prSet(lMa)
+function lua_lib.prSet(lMa)
   -- level
   lPr = 1
   lMaPr = lMa
@@ -52,8 +51,12 @@ end
 --
 -- Input
 --   msg  -  message
-function th_lib.pr(msg)
-  assert(lPr)
+function lua_lib.pr(msg)
+  -- set promption level
+  if not lPr then
+    lua_lib.prSet(3)
+  end
+
   if lPr < lMaPr then
     for l = 1, lPr + 1 do
       io.write('-')
@@ -71,7 +74,7 @@ end
 -- Output
 --   foldNms    -  directory name list, n x
 --   foldPaths  -  directory path list, n x
-function th_lib.listFold(fold)
+function lua_lib.listFold(fold)
   foldNms = {}
   foldPaths = {}
 
@@ -85,5 +88,3 @@ function th_lib.listFold(fold)
   end
   return foldNms, foldPaths
 end
-
-return th_lib
