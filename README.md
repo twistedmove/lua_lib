@@ -1,1 +1,1 @@
-My Lua Library.
+* My Lua Library.
