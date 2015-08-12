@@ -3,10 +3,9 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-10-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-10-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-11-2015
 
 local image = require 'image'
-local gm = require 'graphicsmagick'
 
 ----------------------------------------------------------------------
 -- Split string into parts.
@@ -17,6 +16,7 @@ local gm = require 'graphicsmagick'
 -- Ouput
 --   img      -  image, d x h x w
 function lua_lib.imgLoad(imgPath)
+  local gm = require 'graphicsmagick'
   local ok, img = pcall(gm.Image, imgPath)
 
   -- error
