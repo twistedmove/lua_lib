@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-10-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-11-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-12-2015
 
 local image = require 'image'
 
@@ -52,6 +52,7 @@ end
 -- Output
 --   img    -  new image
 function lua_lib.imgSizNew(img0, sizMa)
+  require 'image'
   img = image.scale(img0, '^' .. sizMa)
 
   return img
