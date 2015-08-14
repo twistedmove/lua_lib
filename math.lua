@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-09-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-09-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-13-2015
 
 ----------------------------------------------------------------------
 -- Compute the maximum value of a given table.
@@ -31,4 +31,16 @@ function lua_lib.tmin(as)
    require 'torch'
    local bs = torch.Tensor(as)
    return bs:min()
+end
+
+----------------------------------------------------------------------
+-- Round to integer.
+--
+-- Input
+--   a  -  a float
+--
+-- Output
+--   b  -  an integer
+function lua_lib.round(a)
+  return math.floor(a + 0.5)
 end

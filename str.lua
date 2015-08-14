@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-09-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-11-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-13-2015
 
 ----------------------------------------------------------------------
 -- Split string into parts.
@@ -43,10 +43,28 @@ end
 -- Output
 --   idx  -  index, n x
 function lua_lib.str2idx(str)
-  parts = lua_lib.split(str, ',')
-  idx = {}
+  local parts = lua_lib.split(str, ',')
+  local idx = {}
   for i, part in ipairs(parts) do
     table.insert(idx, tonumber(part))
   end
   return idx
+end
+
+----------------------------------------------------------------------
+-- Remove subfix from a file name.
+--
+-- Input
+--   name0  -  original name
+--
+-- Output
+--   name   -  new name
+function lua_lib.strDelSub(name0)
+  local tail = string.find(name0, '[.]')
+
+  local name = name0
+  if tail then
+    name = string.sub(name0, 1, tail - 1)
+  end
+  return name
 end
