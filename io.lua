@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-14-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-15-2015
 
 ----------------------------------------------------------------------
 -- Load lines from the given file.
@@ -89,10 +89,15 @@ end
 --   key  -  key
 --   val  -  value
 function lua_lib.lmdbR(ha)
+  if ha.co == 0 then
+    ha.cur:first()
+  else
+    ha.cur:next()
+  end
+  ha.co = ha.co + 1
+
   -- local val2 = ha.cur:getData()
   local key, val = ha.cur:get()
-
-  ha.cur:next()
   return key, val
 end
 
