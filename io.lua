@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-13-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-14-2015
 
 ----------------------------------------------------------------------
 -- Load lines from the given file.
@@ -72,7 +72,8 @@ function lua_lib.lmdbRIn(lmdbPath)
     env = env,
     cur = cur,
     co = 0,
-    lmdbPath = lmdbPath
+    lmdbPath = lmdbPath,
+    n = env:stat().entries
   }
 
   return ha
@@ -88,9 +89,11 @@ end
 --   key  -  key
 --   val  -  value
 function lua_lib.lmdbR(ha)
-  local val = ha.cur:getData()
+  -- local val2 = ha.cur:getData()
+  local key, val = ha.cur:get()
+
   ha.cur:next()
-  return val
+  return key, val
 end
 
 ----------------------------------------------------------------------
