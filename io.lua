@@ -3,7 +3,10 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-15-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-16-2015
+
+local lmdb = require 'lmdb'
+local hdf5 = require 'hdf5'
 
 ----------------------------------------------------------------------
 -- Load lines from the given file.
@@ -54,8 +57,6 @@ end
 -- Output
 --    ha       -  handles
 function lua_lib.lmdbRIn(lmdbPath)
-  require 'lmdb'
-
   -- open
   local env = lmdb.env {
     Path = lmdbPath,
@@ -108,4 +109,114 @@ end
 --   ha  -  handle
 function lua_lib.lmdbROut(ha)
   ha.env:close()
+end
+
+----------------------------------------------------------------------
+-- Save matrix to file.
+--
+-- Input
+--   fpath  -  file path
+--   A      -  torch tensor
+--   fmt    -  format
+function lua_lib.matSave(fpath, A, fmt)
+  local fio = io.open(fpath, "w")
+  local dims = #A
+  fio:write(string.format('%d %d %d %d\n', dims[1], dims[2], dims[3], dims[4]))
+  for i1 = 1, dims[1] do
+    for i2 = 1, dims[2] do
+      for i3 = 1, dims[3] do
+        for i4 = 1, dims[4] do
+          fio:write(string.format(fmt, A[i1][i2][i3][i4]))
+          fio:write(' ')
+        end
+      end
+    end
+  end
+  fio:close()
+end
+
+----------------------------------------------------------------------
+-- Load matrix from file.
+--
+-- Input
+--   fpath  -  file path
+--   fmt    -  format
+--
+-- Output
+--   A      -  torch tensor
+function lua_lib.matLoad(fpath, fmt)
+  local fio = io.open(fpath, "r")
+  local dims = torch.LongStorage(4)
+
+  local ln = fio:read('*l')
+  local parts = lua_lib.split(ln, ' ')
+  local dims = torch.LongStorage(4)
+  for i = 1, 4 do
+    dims[i] = tonumber(parts[i])
+  end
+
+  local A = torch.Tensor(dims)
+  ln = fio:read('*l')
+  parts = lua_lib.split(ln, ' ')
+  local co = 0
+  for i1 = 1, dims[1] do
+    for i2 = 1, dims[2] do
+      for i3 = 1, dims[3] do
+        for i4 = 1, dims[4] do
+          co = co + 1
+          A[i1][i2][i3][i4] = tonumber(parts[co])
+        end
+      end
+    end
+  end
+  fio:close()
+
+  return A
+end
+
+----------------------------------------------------------------------
+-- Open an HDF handler for reading.
+--
+-- Input
+--   hdfPath  -  hdf path
+function lua_lib.hdfRIn(hdfPath)
+  local ha
+  return ha
+end
+
+----------------------------------------------------------------------
+-- Open an HDF handler for writing.
+--
+-- Input
+--   hdfPath  -  hdf path
+--
+-- Output
+--   ha       -  hdf handler
+function lua_lib.hdfWIn(hdfPath)
+  local ha = hdf5.open(hdfPath, 'w')
+
+  return ha
+end
+
+----------------------------------------------------------------------
+-- Write a tensor to hdf.
+--
+-- Input
+--   ha  -  hdf handler
+--   A   -  matrix
+--   nm  -  variable name
+function lua_lib.hdfW(ha, A, nm)
+  if nm == nil then
+    nm = 'a'
+  end
+  ha:write(nm, A)
+end
+
+----------------------------------------------------------------------
+-- Close an HDF handler.
+--
+-- Input
+--   ha  -  hdf handler
+function lua_lib.hdfWOut(ha)
+  ha:close()
 end
