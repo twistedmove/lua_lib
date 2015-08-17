@@ -3,14 +3,49 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-13-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-17-2015
+
+----------------------------------------------------------------------
+-- Print information.
+-- Similar to matlab's sprintf function.
+--
+-- Input
+--   fmt  -  format
+--   ...  -  message
+--
+-- Output
+--   str  -  string
+function lua_lib.sprintf(fmt, ...)
+  -- string format
+  local arg = {...}
+  local str
+  if #arg == 0 then
+    str = fmt
+  else
+    str = string.format(fmt, ...)
+  end
+  return str
+end
+
+----------------------------------------------------------------------
+-- Print information
+--
+-- Input
+--   fmt  -  format
+--   ...  -  message
+function lua_lib.printf(fmt, ...)
+  -- string format
+  local str = lua_lib.sprintf(fmt, ...)
+
+  print(str)
+end
 
 ----------------------------------------------------------------------
 -- Print the keys of a table.
 --
 -- Input
 --   tab  -  table
-function lua_lib.prKeys(tab)
+function lua_lib.keys(tab)
   -- each key
   for k, v in pairs(tab) do
     print(k)
