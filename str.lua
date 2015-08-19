@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-09-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-13-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-18-2015
 
 ----------------------------------------------------------------------
 -- Split string into parts.
@@ -67,4 +67,30 @@ function lua_lib.strDelSub(name0)
     name = string.sub(name0, 1, tail - 1)
   end
   return name
+end
+
+----------------------------------------------------------------------
+-- Same as python's 'startswith' function.
+--
+-- Input
+--   s    -  string
+--   pre  -  prefix
+--
+-- Output
+--   res  -  result, true | false
+function lua_lib.startswith(s, pre)
+  return string.sub(s, 1, s.len(pre)) == pre
+end
+
+----------------------------------------------------------------------
+-- Same as python's 'endswith' function.
+--
+-- Input
+--   s    -  string
+--   sub  -  subfix
+--
+-- Output
+--   res  -  result, true | false
+function lua_lib.endswith(s, sub)
+  return sub == '' or string.sub(s, -string.len(sub)) == sub
 end
