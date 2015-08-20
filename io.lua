@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-16-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-20-2015
 
 local lmdb = require 'lmdb'
 local hdf5 = require 'hdf5'
@@ -17,6 +17,7 @@ local hdf5 = require 'hdf5'
 -- Ouput
 --   lns      -  lines, n x
 function lua_lib.loadLns(lstPath)
+  assert(lstPath, 'lstPath is nil')
   local lns = {}
   for ln in io.lines(lstPath) do
     table.insert(lns, ln)
