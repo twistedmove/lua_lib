@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-17-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-22-2015
 
 ----------------------------------------------------------------------
 -- Print information.
@@ -50,6 +50,27 @@ function lua_lib.keys(tab)
   for k, v in pairs(tab) do
     print(k)
   end
+end
+
+----------------------------------------------------------------------
+-- Print table.
+--
+-- Input
+--   tab  -  table
+--   nm   -  name of table
+function lua_lib.prTab(tab, nm)
+  -- table name
+  if nm then
+    lua_lib.prIn(string.format('table "%s" content', nm))
+  else
+    lua_lib.prIn('table content')
+  end
+
+  -- each key
+  for k, v in pairs(tab) do
+    lua_lib.pr(k .. ': ' .. tostring(v))
+  end
+  lua_lib.prOut()
 end
 
 ----------------------------------------------------------------------
@@ -111,10 +132,11 @@ function lua_lib.pr(fmt, ...)
   end
 
   if lPr < lMaPr then
+    local prefix = ''
     for l = 1, lPr do
-      io.write('-')
+      prefix = prefix .. '-'
     end
-    print(str)
+    print(prefix .. str)
   end
 end
 
