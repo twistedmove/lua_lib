@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-22-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 08-25-2015
 
 ----------------------------------------------------------------------
 -- Print information.
@@ -50,6 +50,23 @@ function lua_lib.keys(tab)
   for k, v in pairs(tab) do
     print(k)
   end
+end
+
+----------------------------------------------------------------------
+-- Return the number of keys of a table.
+--
+-- Input
+--   tab  -  table
+--
+-- Output
+--   n    -  #keys
+function lua_lib.nkeys(tab)
+  -- each key
+  local n = 0
+  for k, v in pairs(tab) do
+    n = n + 1
+  end
+  return n
 end
 
 ----------------------------------------------------------------------
