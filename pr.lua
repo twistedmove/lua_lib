@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-02-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-25-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 2015-08
 
 ----------------------------------------------------------------------
 -- Print information.
