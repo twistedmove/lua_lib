@@ -3,7 +3,7 @@
 --
 -- History
 --   create  -  Feng Zhou (zhfe99@gmail.com), 08-10-2015
---   modify  -  Feng Zhou (zhfe99@gmail.com), 08-13-2015
+--   modify  -  Feng Zhou (zhfe99@gmail.com), 2015-09
 
 local image = require 'image'
 
@@ -63,6 +63,24 @@ end
 --   img    -  new image
 function lua_lib.imgSizNew(img0, sizMa)
   img = image.scale(img0, '^' .. sizMa)
+
+  return img
+end
+
+----------------------------------------------------------------------
+-- Crop an image.
+--
+-- Input
+--   img    -  original image
+--   w      -  width
+--
+-- Output
+--   img    -  new image
+function lua_lib.imgCrop(img, w)
+  local nDim = img:dim()
+  local x0 = math.ceil((img:size(nDim) - w) / 2)
+  local y0 = math.ceil((img:size(nDim - 1) - w) / 2)
+  img = img:narrow(nDim, x0, w):narrow(nDim - 1, y0, w)
 
   return img
 end
